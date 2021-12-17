@@ -5,7 +5,7 @@ export const getPosts = async (req, res) => {
     const postMessages = await PostMessage.find();
     //   if(!postMessages)
     //     throw "No Posts Found";
-    return res.status(200).json({ posts: postMessages });
+    return res.json({ posts: postMessages });
   } catch (error) {
     return res.status(403).json({ error: error.message });
   }
