@@ -5,7 +5,7 @@ export const getPosts = async (req, res) => {
     const postMessages = await PostMessage.find();
     //   if(!postMessages)
     //     throw "No Posts Found";
-    return res.json({ posts: postMessages });
+    return res.json(postMessages);
   } catch (error) {
     return res.status(403).json({ error: error.message });
   }
@@ -16,7 +16,7 @@ export const createPost = async (req, res) => {
   const newPost = new PostMessage(post);
   try {
     await newPost.save();
-    return res.status(201).json({ post: newPost });
+    return res.status(201).json(newPost);
   } catch (error) {
     res.status(409).json({ error: error.message });
   }

@@ -1,14 +1,14 @@
 import { makeStyles } from "@mui/styles";
 
 export default makeStyles((theme) => ({
-  //   root: {
-  //     "& .MuiTextField-root": {
-  //       margin: theme.spacing(1),
-  //     },
-  //   },
-  //   paper: {
-  //     padding: theme.spacing(2),
-  //   },
+  root: {
+    "& .MuiTextField-root": {
+      margin: "4px !important",
+    },
+  },
+  paper: {
+    padding: "4px !important",
+  },
   form: {
     display: "flex",
     flexWrap: "wrap",
@@ -16,9 +16,9 @@ export default makeStyles((theme) => ({
   },
   fileInput: {
     width: "97%",
-    margin: "10px 0",
+    margin: "10px 0 !important",
   },
   buttonSubmit: {
-    marginBottom: 10,
+    margin: "4px 0 !important",
   },
 }));
