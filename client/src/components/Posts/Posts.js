@@ -2,8 +2,13 @@ import React from "react";
 import { Grid } from "@mui/material";
 import Post from "./Post/Post";
 import useStyles from "./styles";
+import { useSelector } from "react-redux";
 
 const Posts = () => {
+  const posts = useSelector((state) => {
+    console.log(state);
+  });
+
   const classes = useStyles();
   return (
     <>
