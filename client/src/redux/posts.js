@@ -34,7 +34,7 @@ const postsSlice = createSlice({
       return action.payload;
     });
     builder.addCase(createPostThunk.fulfilled, (state, action) => {
-      return state;
+      state.push(action.payload);
     });
   },
 });

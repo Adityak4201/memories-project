@@ -19,7 +19,14 @@ const Form = () => {
   const handleChange = (e) =>
     setPostData({ ...postData, [e.target.name]: e.target.value });
 
-  const clear = () => {};
+  const clear = () =>
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
 
   const handleSubmit = (e) => {
     e.preventDefault();
