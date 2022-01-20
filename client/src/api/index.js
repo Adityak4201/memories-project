@@ -1,5 +1,7 @@
 import axios from "axios";
 
-const url = "https://4000-scarlet-panda-ewj6minp.ws-us23.gitpod.io/posts";
+const url = "http://localhost:4000/posts";
 
 export const fetchPosts = () => axios.get(url);
+
+export const createPost = (newPost) => axios.post(url, newPost);

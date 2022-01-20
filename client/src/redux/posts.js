@@ -13,25 +13,33 @@ export const getPosts = createAsyncThunk("users/fetchAll", async () => {
   }
 });
 
+export const createPostThunk = createAsyncThunk(
+  "posts/create",
+  async (post) => {
+    try {
+      const { data } = await api.createPost(post);
+      return data;
+    } catch (err) {
+      console.log(err.response);
+    }
+  }
+);
+
 const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {
-    fetchAll: (state, action) => {
-      return state;
-    },
-    create: (state, action) => {
-      return state;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getPosts.fulfilled, (state, action) => {
       return action.payload;
     });
+    builder.addCase(createPostThunk.fulfilled, (state, action) => {
+      return state;
+    });
   },
 });
 
-console.log(postsSlice.actions);
+// console.log(postsSlice.actions);
 
 export const postsActions = postsSlice.actions;
 
