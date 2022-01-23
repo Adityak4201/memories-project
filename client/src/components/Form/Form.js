@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Paper, TextField, Typography } from "@mui/material";
 import FileBase from "react-file-base64";
 import useStyles from "./styles";
-import { useDispatch } from "react-redux";
-import { createPostThunk } from "../../redux/posts";
+import { useDispatch, useSelector } from "react-redux";
+import { createPostThunk, updatePostThunk } from "../../redux/posts";
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -13,13 +13,21 @@ const Form = () => {
     tags: "",
     selectedFile: "",
   });
+  const post = useSelector((state) =>
+    currentId ? state.find((post) => post._id === currentId) : null
+  );
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
 
   const handleChange = (e) =>
     setPostData({ ...postData, [e.target.name]: e.target.value });
 
-  const clear = () =>
+  const clear = () => {
+    setCurrentId(null);
     setPostData({
       creator: "",
       title: "",
@@ -27,10 +35,15 @@ const Form = () => {
       tags: "",
       selectedFile: "",
     });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPostThunk(postData));
+    // console.log(currentId, postData);
+
+    if (currentId) dispatch(updatePostThunk(postData));
+    else dispatch(createPostThunk(postData));
+    clear();
   };
 
   return (
@@ -41,7 +54,9 @@ const Form = () => {
         className={`${classes.form} ${classes.root}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a Memory</Typography>
+        <Typography variant="h6">
+          {currentId ? "Updating" : "Creating"} a Memory
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"

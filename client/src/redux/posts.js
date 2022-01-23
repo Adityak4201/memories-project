@@ -25,17 +25,34 @@ export const createPostThunk = createAsyncThunk(
   }
 );
 
+export const updatePostThunk = createAsyncThunk(
+  "posts/update",
+  async (post) => {
+    try {
+      // console.log(post);
+      const { data } = await api.updatePost(post._id, post);
+      return data;
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+);
+
 const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(getPosts.fulfilled, (state, action) => {
+  extraReducers: {
+    [getPosts.fulfilled]: (state, action) => {
       return action.payload;
-    });
-    builder.addCase(createPostThunk.fulfilled, (state, action) => {
+    },
+    [createPostThunk.fulfilled]: (state, action) => {
       state.push(action.payload);
-    });
+    },
+    [updatePostThunk.fulfilled]: (state, action) => {
+      const index = state.findIndex((post) => post._id === action.payload._id);
+      state[index] = action.payload;
+    },
   },
 });
 
